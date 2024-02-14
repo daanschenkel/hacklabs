@@ -17,7 +17,7 @@ for (let i = 0; i < 128; i++) {
 }
 
 async function initBrowser() {
-  browser = await puppeteer.launch({ headless: false });
+  browser = await puppeteer.launch({ headless: true });
 
   //auth
   const page = await browser.newPage();
