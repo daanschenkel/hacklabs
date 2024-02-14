@@ -1,5 +1,5 @@
 <script>
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_API_URL } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Terminal } from 'xterm';
@@ -17,20 +17,16 @@
 	const history = [];
 	let historyIndex = 0;
 
-	const users = [
-		{
-			name: 'YmFydA==',
-			password: 'YmFydDEyMzQ='
-		},
-		{
-			name: 'cm9vdA',
-			password: 'Um9ldFJvZXQxMjMh'
-		}
-	];
+	let users =
+		'W3sibmFtZSI6ImJhcnQiLCJwYXNzd29yZCI6ImJhcnQxMjMifSx7Im5hbWUiOiJyb290IiwicGFzc3dvcmQiOiJSb2V0Um9ldDEyMyEifV0';
 	let fileSystem =
 		'eyJob21lIjp7ImJhcnQiOnsidXNlci50eHQiOiJ0cjZzOXI0Ym42MW52bWxvcTEwOSIsInBhc3N3b3JkLnR4dCI6IklrIGdvb2kgZGl0IGV2ZW4gaGllciB6b2RhdCBpayBoZXQgbmlldCB2ZXJnZWV0OiBiYXJ0MTIzNCJ9LCJyb290Ijp7InJvb3QudHh0IjoiY2p5a2NmNGk5YTdmd3JhZGxxaHAifSwiLnJvb3RwYXNzIjoiQmFydCwgaWsgaGViIGhldCByb290IHdhY2h0d29vcmQgZ2VyZXNldCEgSGllciBpcyBoZXQgbmlldXdlIHdhY2h0d29vcmQ6XHJcblJvZXRSb2V0MTIzIVxyXG5WZXJ3aWpkZXIgZGl0IGJlc3RhbmQgYWxzIGplIGhldCBoZWJ0IGdlbGV6ZW4hXHJcblxyXG4tIEJlcnQifX0';
+
 	fileSystem = atob(fileSystem);
 	fileSystem = JSON.parse(fileSystem);
+
+	users = atob(users);
+	users = JSON.parse(users);
 
 	function canAccess(path, user) {
 		if (user === 'root') return true;
@@ -288,7 +284,7 @@
 
 	onMount(async () => {
 		const auth = localStorage.getItem('auth');
-		const res = await fetch(`${env.PUBLIC_API_URL}/authed?auth=${auth}`).then((res) => res.json());
+		const res = await fetch(`${PUBLIC_API_URL}/authed?auth=${auth}`).then((res) => res.json());
 		authed = res.authed;
 
 		if (!authed) goto('/login');

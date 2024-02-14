@@ -1,5 +1,5 @@
 <script>
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_API_URL } from '$env/static/public';
 	import { goto } from '$app/navigation';
 	let username = '';
 	let password = '';
@@ -10,7 +10,7 @@
 	<form
 		on:submit={async (e) => {
 			e.preventDefault();
-			const res = await fetch(`${env.PUBLIC_API_URL}/auth`, {
+			const res = await fetch(`${PUBLIC_API_URL}/auth`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

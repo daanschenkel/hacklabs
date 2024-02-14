@@ -1,5 +1,5 @@
 <script>
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_API_URL } from '$env/static/public';
 	let logs = [];
 	let loading = false;
 
@@ -8,9 +8,7 @@
 		query.set('prompt', prompt);
 		query.set('logs', JSON.stringify(logs));
 
-		const res = await fetch(`${env.PUBLIC_API_URL}/chat?${query.toString()}`).then((res) =>
-			res.json()
-		);
+		const res = await fetch(`${PUBLIC_API_URL}/chat?${query.toString()}`).then((res) => res.json());
 
 		logs = res.logs;
 	}

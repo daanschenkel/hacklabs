@@ -1,12 +1,12 @@
 <script>
-	import { env } from '$env/dynamic/public';
+	import { PUBLIC_API_URL } from '$env/static/public';
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	let authed;
 
 	onMount(async () => {
 		const auth = localStorage.getItem('auth');
-		const res = await fetch(`${env.PUBLIC_API_URL}/authed?auth=${auth}`).then((res) => res.json());
+		const res = await fetch(`${PUBLIC_API_URL}/authed?auth=${auth}`).then((res) => res.json());
 		authed = res.authed;
 
 		if (!authed) goto('/login');
