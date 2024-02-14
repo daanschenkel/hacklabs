@@ -3,6 +3,8 @@
 	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { Terminal } from 'xterm';
+	import { FitAddon } from 'xterm-addon-fit';
+	const fitAddon = new FitAddon();
 
 	let authed;
 	let term;
@@ -309,6 +311,8 @@
 			}
 		});
 
+		term.loadAddon(fitAddon);
+
 		//focus the terminal
 
 		term.onKey(async (e) => {
@@ -459,6 +463,7 @@
 	function loadTerminal(node) {
 		term.open(node);
 		term.focus();
+		fitAddon.fit();
 
 		sendHelp();
 	}
