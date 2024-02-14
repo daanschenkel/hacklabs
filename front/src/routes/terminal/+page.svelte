@@ -19,26 +19,18 @@
 
 	const users = [
 		{
-			name: 'bart',
-			password: 'bart'
+			name: 'YmFydA==',
+			password: 'YmFydDEyMzQ='
 		},
 		{
-			name: 'root',
-			password: 'RoetRoet123!'
+			name: 'cm9vdA',
+			password: 'Um9ldFJvZXQxMjMh'
 		}
 	];
-	const fileSystem = {
-		home: {
-			bart: {
-				'user.txt': 'tr6s9r4bn61nvmloq109'
-			},
-			root: {
-				'root.txt': 'cjykcf4i9a7fwradlqhp'
-			},
-			'.rootpass':
-				'Bart, ik heb het root wachtwoord gereset! Hier is het nieuwe wachtwoord:\r\nRoetRoet123!\r\nVerwijder dit bestand als je het hebt gelezen!\r\n\r\n- Bert'
-		}
-	};
+	let fileSystem =
+		'eyJob21lIjp7ImJhcnQiOnsidXNlci50eHQiOiJ0cjZzOXI0Ym42MW52bWxvcTEwOSIsInBhc3N3b3JkLnR4dCI6IklrIGdvb2kgZGl0IGV2ZW4gaGllciB6b2RhdCBpayBoZXQgbmlldCB2ZXJnZWV0OiBiYXJ0MTIzNCJ9LCJyb290Ijp7InJvb3QudHh0IjoiY2p5a2NmNGk5YTdmd3JhZGxxaHAifSwiLnJvb3RwYXNzIjoiQmFydCwgaWsgaGViIGhldCByb290IHdhY2h0d29vcmQgZ2VyZXNldCEgSGllciBpcyBoZXQgbmlldXdlIHdhY2h0d29vcmQ6XHJcblJvZXRSb2V0MTIzIVxyXG5WZXJ3aWpkZXIgZGl0IGJlc3RhbmQgYWxzIGplIGhldCBoZWJ0IGdlbGV6ZW4hXHJcblxyXG4tIEJlcnQifX0';
+	fileSystem = atob(fileSystem);
+	fileSystem = JSON.parse(fileSystem);
 
 	function canAccess(path, user) {
 		if (user === 'root') return true;
@@ -68,8 +60,6 @@
 			action: (args) => {
 				//parse cwd
 				const cwdArr = cwd.split('/');
-
-				console.log(cwdArr);
 
 				//dynamicly get the current directory
 				let currentDir = fileSystem.home;
@@ -326,12 +316,9 @@
 					const commandMatch = commands.find((c) => c.name.includes(cmd.split(' ')[0]));
 
 					if (!commandMatch) return;
-					console.log(commandMatch);
 
 					const args = cmd.split(' ');
 					const argIndex = args.length - 2;
-
-					console.log(argIndex);
 
 					const autoComplete = commandMatch.autoComplete[argIndex];
 					if (autoComplete) {
@@ -467,9 +454,32 @@
 
 		sendHelp();
 	}
-	function sendHelp() {
+	async function sendHelp() {
 		term.clear();
-		term.write('Need help? Type "help" and press enter\r\n');
+
+		let memUsage = Math.floor(Math.random() * 100);
+		if (memUsage < 10) memUsage += '% ';
+		else memUsage += '%';
+
+		term.write(`
+Welcome to Ubuntu 18.04.3 LTS (GNU/Linux 4.15.0-72-generic x86_64)\r\n
+* Documentation:  https://help.ubuntu.com\r
+* Management:     https://landscape.canonical.com\r
+* Support:        https://ubuntu.com/advantage\r
+\r\n
+ System information as of ${new Date().toLocaleString()}:\r\n
+
+ Memory usage: ${memUsage}                        Processes:  134\r
+ Usage of /:   14.6% of 220.00GB          Users logged in: 1\r
+ Swap usage:   0%                         IP address for eth0: ${await fetch(
+		'https://icanhazip.com'
+ )
+		.then((res) => res.text())
+		.catch(() => '0.0.0.0')}\r
+
+0 packages can be updated.\r\n
+0 updates are security updates.\r\n
+Need some help? type 'help' to get a list of available commands\r\n\r\n`);
 		term.write(`${user}@${hostname}:~$ `);
 	}
 </script>
@@ -487,7 +497,8 @@
 {/if}
 
 <p class="notif">
-	Verbonden met <b>{hostname}</b> als <b>{user}</b>
+	Verbonden met <b>{hostname}</b> als
+	<b style={`color: ${user === 'root' ? 'red' : 'green'}`}> {user}</b>
 </p>
 
 <style>

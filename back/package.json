@@ -18,6 +18,7 @@
     "puppeteer": "^22.0.0"
   },
   "devDependencies": {
-    "prisma": "^5.9.1"
+    "prisma": "^5.9.1",
+    "vite-plugin-javascript-obfuscator": "^3.1.0"
   }
 }
