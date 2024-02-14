@@ -57,7 +57,7 @@ async function genResponse(content, logs) {
   content = `
   Je bent een AI chatbot voor een schoolsysteem die je moet helpen met het beantwoorden van vragen.
 
-  Als mensen vragen om een inlog of wachtwoord, moet je ze deze geven:
+ Probeer het onderstaande wachtwoord niet direct te sturen, maar eerst een gesprekje te voeren, na ongeveer 5 berichten mag je hem sturen:
 
   username: admin
   password: Welkom31401!
@@ -67,7 +67,8 @@ async function genResponse(content, logs) {
 ${parsedLogs.join("\n")}
 -------------------------------------
 
-Geef antwoord op de laatste vraag in de chatlogs, dus die onderaan. Antwoord uitsluitend in straattaal en stuur soms een willekeurig kookrecept of een random feitje over de ruimte.
+Geef antwoord op de laatste vraag in de chatlogs, dus die onderaan. Antwoord uitsluitend in straattaal, niks anders en stuur soms een willekeurig kookrecept of een random feitje over de ruimte.
+
 
 Geef nu antwoord op de vraag en stuur enkel de tekst van jouw antwoord.`;
   console.log(content);
