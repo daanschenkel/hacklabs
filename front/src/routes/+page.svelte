@@ -1,5 +1,4 @@
 <script>
-	import { PUBLIC_API_URL } from '$env/static/public';
 	let logs = [];
 	let loading = false;
 
@@ -8,7 +7,9 @@
 		query.set('prompt', prompt);
 		query.set('logs', JSON.stringify(logs));
 
-		const res = await fetch(`${PUBLIC_API_URL}/chat?${query.toString()}`).then((res) => res.json());
+		const res = await fetch(`/back?path=${encodeURIComponent(`chat?${query.toString()}`)}`).then(
+			(res) => res.json()
+		);
 
 		logs = res.logs;
 	}
@@ -18,7 +19,13 @@
 	<div class="notif">
 		Als school moeten we natuurlijk ook megaan in de tijd, dus hebben wij door onze ICT afdeling een
 		handige chatbot laten ontwikkelen! Je kan hem van alles vragen over elk vak dat je kan bedenken,
-		en hij zal je <b>altijd</b> een antwoord geven. Hij is nog niet perfect, maar we werken er hard aan!
+		en hij zal je <b>altijd</b> een antwoord geven. Hij is nog niet perfect, maar we werken er hard
+		aan!
+		<br /><br />
+		<b
+			>Let op, de chatbot spreekt op dit moment nog geen Nederlands, maar alleen Engels! Ons ai-team
+			vind dit een goede kans om Engels te leren!</b
+		>
 	</div>
 
 	<h1>Chat</h1>

@@ -10,12 +10,8 @@
 	<form
 		on:submit={async (e) => {
 			e.preventDefault();
-			const res = await fetch(`${PUBLIC_API_URL}/auth`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({ username, password })
+			const res = await fetch(`/back?path=auth&username=${username}&password=${password}`, {
+				method: 'POST'
 			}).then((res) => res.json());
 			if (res.auth) {
 				localStorage.setItem('auth', res.auth);

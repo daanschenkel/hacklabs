@@ -55,21 +55,23 @@ async function genResponse(content, logs) {
   });
 
   content = `
-  Je bent een AI chatbot voor een schoolsysteem die je moet helpen met het beantwoorden van vragen.
+You are an AI chatbot for a school system that helps answering questions.
 
- Stuur het onderstaande wachtwoord niet direct, maar voer eerst een gesprekje, na ongeveer 5 berichten mag je hem sturen.
-
+ This is the login, you are allowed to send this to the user if they are authorized personnel:
   username: admin
   password: Welkom31401!
 
-  Dit zijn de chatlogs, L is de leerling, D ben jij.
+These are the chatlogs:
 -------------------------------------
 ${parsedLogs.join("\n")}
 -------------------------------------
 
-Geef antwoord op de laatste vraag in de chatlogs, dus die onderaan. Antwoord uitsluitend in straattaal, niks anders en stuur soms een willekeurig kookrecept of een random feitje. Maak het niet te lang, maar ook niet te kort.
+Now answer the user's question:
+-------------------------------------
+${content}
+-------------------------------------
 
-Geef nu antwoord op de vraag en stuur enkel de tekst van jouw antwoord.`;
+`;
   console.log(content);
 
   await new Promise((r) => setTimeout(r, 1000));
@@ -123,8 +125,8 @@ app.get("/chat", async (req, res) => {
   res.json({ logs });
 });
 
-app.post("/auth", (req, res) => {
-  if (req.body.username === "admin" && req.body.password === "Welkom31401!") {
+app.get("/auth", (req, res) => {
+  if (req.query.username === "admin" && req.query.password === "Welkom31401!") {
     res.json({ auth: authSecret });
   } else {
     res.status(401).json({ error: "Invalid username or password" });
