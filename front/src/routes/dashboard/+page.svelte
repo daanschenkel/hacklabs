@@ -17,7 +17,9 @@
 {:else if authed}
 	<div class="dashboard">
 		<h1 class="text">Welkom Bart!</h1>
-		<a class="btn" href="/terminal"> Onderhoud uitvoeren </a>
+		<a class="btn" href={`/terminal?secret=${localStorage.getItem('auth')}`}>
+			Onderhoud uitvoeren
+		</a>
 
 		<button
 			on:click={() => {
