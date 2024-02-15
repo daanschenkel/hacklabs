@@ -1,0 +1,15 @@
+---
+machine:
+- ip: 10.8.0.137
+  name: 'wrong_agent_smith'
+  image: 'security-102/wrong_agent_smith:v1.0'
+  tag: v1.0
+  ports:
+  - container: 3000
+    host: 80
+    protocol: 'tcp'
+  flags:
+    user:
+    - 'tr6s9r4bn61nvmloq109'
+    root:
+    - 'cjykcf4i9a7fwradlqhp'
