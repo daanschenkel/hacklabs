@@ -74,7 +74,7 @@
 	<!-- 
 		TODO: inlog uit trainingsdata halen
 	-->
-	<a href="/login" class="login"> Beheer </a>
+	<!-- <a href="/login" class="login"> Beheer </a> -->
 </main>
 
 <style>
