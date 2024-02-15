@@ -18,7 +18,7 @@ for (let i = 0; i < 128; i++) {
 
 async function initBrowser() {
   browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     args: [
       "--no-sandbox",
       "--disable-setuid-sandbox",
@@ -45,6 +45,11 @@ async function initBrowser() {
 
   await page.waitForSelector("#login-via-email-id");
   await page.click("#login-via-email-id");
+
+  //wait for login to complete
+  await page.waitForSelector("#headerLoginButton", { hidden: true });
+
+  await page.close();
 }
 initBrowser();
 
