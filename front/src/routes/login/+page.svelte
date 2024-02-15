@@ -10,9 +10,9 @@
 	<form
 		on:submit={async (e) => {
 			e.preventDefault();
-			const res = await fetch(`/back?path=auth&username=${username}&password=${password}`, {
-				method: 'POST'
-			}).then((res) => res.json());
+			const res = await fetch(
+				`/back?path=${encodeURIComponent(`auth?username=${username}&password=${password}`)}`
+			).then((res) => res.json());
 			if (res.auth) {
 				localStorage.setItem('auth', res.auth);
 				goto('/dashboard');

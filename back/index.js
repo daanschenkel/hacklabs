@@ -126,6 +126,7 @@ app.get("/chat", async (req, res) => {
 });
 
 app.get("/auth", (req, res) => {
+  console.log(req.query);
   if (req.query.username === "admin" && req.query.password === "Welkom31401!") {
     res.json({ auth: authSecret });
   } else {
