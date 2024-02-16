@@ -1,5 +1,4 @@
-ARG base_image=base-image
-FROM ${base_image}
+FROM node:18
 
 #Puppeteer
 RUN apt-get update
